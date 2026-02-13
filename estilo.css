@@ -1,0 +1,105 @@
+/* 1. CONFIGURAÇÃO DA PÁGINA */
+body {
+  background-color: #000000;  /* Azul marinho bem escuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* 2. CAIXA PRINCIPAL */
+.calculadora {
+  background-color: #191e22;  /* Azul escuro */
+  padding: 20px;
+  border-radius: 40px;
+  width: 300px;
+  box-shadow: 0 0 25px #163d5a; /* Sombra azulada */
+  text-align: center;
+}
+
+
+
+/* 3. TÍTULO */
+.calculadora h1#cabecalho {
+  color: #e3f2fd; /* Azul bem claro */
+  margin-bottom: 10px;
+  
+}
+
+.calculadora h1#cabecalho .detalhe {
+  font-size: 70px;
+  color: #141414;
+  text-align: left;
+}
+
+.calculadora h1#cabecalho .titulo {
+  font-size: 25px;
+  text-decoration: overline underline;
+  text-align: right;
+}
+
+.calculadora h1#cabecalho .subtitulo {
+  font-size: 15px;
+  text-align: right;
+}
+
+
+/* 4. VISOR */
+#visor {
+  width: 100%;
+  height: 55px;
+  font-size: 28px;
+  text-align: right;
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #495740; /* Azul médio */
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+/* 5. TECLADO */
+.teclado {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* 6. BOTÕES GERAIS */
+.btn {
+  height: 60px;
+  font-size: 22px;
+  border: none;
+  border-radius: 20%;
+  cursor: pointer;
+  background-color: #101416; /* Azul padrão */
+  color: white;
+}
+
+/* 7. CORES ESPECÍFICAS */
+.operador {
+  background-color: #09531f; /* Azul claro para operadores */
+}
+
+.limpar {
+  background-color: #09531f; /* Azul mais forte (ação importante) */
+}
+
+.igual {
+  background-color: #666d0b; /* Azul vibrante (resultado) */
+}
+
+/* 8. BOTÕES ESPECIAIS */
+.zero {
+  /*grid-column: span 2;*/
+  border-radius: 15px;
+}
+
+.grande {
+  grid-column: span 4;
+  border-radius: 15px;
+  height: 60px;
+}
