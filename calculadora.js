@@ -38,8 +38,3 @@ function calcular() {
     // 3. Finalmente, mostramos o resultado final (limpo) de volta no visor
     visor.value = resultado;
 }
-
-function porcentagem(){
-    let visor = document.getElementById("visor");
-    let resultado = eval(visor.value);
-}
