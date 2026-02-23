@@ -53,8 +53,9 @@ function converterTextoParaPadraoEval(texto) {
     if (texto == null) return "";
 
     const textoPadraoEval = String(texto)
-        .replace(/²/g, "**2")
-        .replace(/³/g, "**3");
+        .replace(/²/g, "**2") //potência quadrada
+        .replace(/³/g, "**3") //potência cubica
+        .replace(/√(\d+)/, "Math.sqrt($1)"); //raiz quadrada
 
     return textoPadraoEval;
 }
