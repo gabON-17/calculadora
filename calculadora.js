@@ -13,6 +13,14 @@ function digitar(caractere) {
         visor.value = visor.value + caractere;
     }
 }
+
+// Função que digitar um textoInicial + texto personalizado via prompt. Muito útil para personalizar valores das operações
+function digitarComPrompt(textoInicial, textoPrompt, valorDefaultPrompt) {
+    let textoPersonalizado = window.prompt(textoPrompt, valorDefaultPrompt);
+    let resultado = textoInicial + textoPersonalizado;
+    digitar(resultado);
+}
+
 // Função responsável por resetar a calculadora (botão C)
 function limpar() {
     // Localiza o visor e volta o texto dele para "0"
@@ -45,8 +53,9 @@ function converterTextoParaPadraoEval(texto) {
     if (texto == null) return "";
 
     const textoPadraoEval = String(texto)
-        .replace(/²/g, "**2")
-        .replace(/³/g, "**3");
+        .replace(/²/g, "**2") //potência quadrada
+        .replace(/³/g, "**3") //potência cubica
+        .replace(/√(\d+)/, "Math.sqrt($1)"); //raiz quadrada
 
     return textoPadraoEval;
 }
