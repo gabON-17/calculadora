@@ -13,6 +13,14 @@ function digitar(caractere) {
         visor.value = visor.value + caractere;
     }
 }
+
+// Função que digitar um textoInicial + texto personalizado via prompt. Muito útil para personalizar valores das operações
+function digitarComPrompt(textoInicial, textoPrompt, valorDefaultPrompt) {
+    let textoPersonalizado = window.prompt(textoPrompt, valorDefaultPrompt);
+    let resultado = textoInicial + textoPersonalizado;
+    digitar(resultado);
+}
+
 // Função responsável por resetar a calculadora (botão C)
 function limpar() {
     // Localiza o visor e volta o texto dele para "0"
