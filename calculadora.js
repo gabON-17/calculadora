@@ -11,6 +11,18 @@ CalculadoraDB.onsuccess = function(event) {
     console.log("Conexao feita")
 }
 
+addEventListener("DOMContentLoaded", (e) => {
+    console.log("evento ativo")
+    const trasacao = db.transaction(["calculos"], "readwrite")
+    const objetosCalculos = trasacao.objectStore("calculos")
+
+    const clearCalculos = objetosCalculos.clear()
+
+    clearCalculos.onsuccess = function(event) {
+        console.log("Contas apagadas")
+    }
+})
+
 CalculadoraDB.onerror = (event) => {
     console.log("Error ao conectar ao IndexedDB")
 }
@@ -40,11 +52,17 @@ function carregarContas() {
     const getCalculos = objetoCalculos.getAll();
 
     getCalculos.onsuccess = function(event) {
-        console.log("Sucesso")
         const calculos = event.target.result    
+        const historico = document.getElementById("historico")
 
-        console.log(calculos)
-        console.log(getCalculos.result)
+        for(let calc of calculos) {
+            const paragrafo = document.createElement("p")
+            console.log(calc)
+            paragrafo.className = "historico-conta"
+            paragrafo.innerHTML = `${calc.conta} = ${calc.resultado}`
+
+            historico.appendChild(paragrafo)
+        }
     }
 
     getCalculos.onerror = function(event) {

@@ -19,7 +19,22 @@ body {
   text-align: center;
 }
 
+.historico {
+  padding: 50px;
+  height: 400px;
+  margin-left: 60px;
+}
 
+.titulo-historico {
+  color: gray;
+  padding: 3px;
+}
+
+.historico-conta {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #163d5a;
+  text-align: center;
+}
 
 /* 3. TÍTULO */
 .calculadora h1#cabecalho {
