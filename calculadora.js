@@ -1,3 +1,59 @@
+const CalculadoraDB = indexedDB.open("Calculadora", 1)
+let db
+
+CalculadoraDB.onupgradeneeded = function(event) {
+    const db = event.target.result
+    db.createObjectStore("calculos", { keyPath: "id", autoIncrement: true })
+}
+
+CalculadoraDB.onsuccess = function(event) {
+    db = event.target.result
+    console.log("Conexao feita")
+}
+
+CalculadoraDB.onerror = (event) => {
+    console.log("Error ao conectar ao IndexedDB")
+}
+
+function salvarConta(objetoConta) {
+    const transacao = db.transaction(["calculos"], "readwrite")
+
+    const objetoCalculos = transacao.objectStore("calculos")
+    const addCalculo = objetoCalculos.add(objetoConta)
+
+    addCalculo.onsuccess = (event) => {
+        console.log("Conta salva")
+    }
+
+    addCalculo.onerror = (event) => {
+        console.log("Error ao salvar a conta")
+        console.log(event.target.error)
+    }
+}
+
+
+function carregarContas() {
+
+    const transacao = db.transaction(["calculos"], "readonly")
+    const objetoCalculos = transacao.objectStore("calculos")
+
+    const getCalculos = objetoCalculos.getAll();
+
+    getCalculos.onsuccess = function(event) {
+        console.log("Sucesso")
+        const calculos = event.target.result    
+
+        console.log(calculos)
+        console.log(getCalculos.result)
+    }
+
+    getCalculos.onerror = function(event) {
+        console.log("Error ao carregar as contas")
+    }
+}
+
+
+
 // Função que é executada toda vez que clicamos em um número ou operador
 function digitar(caractere) {
     // 1. Criamos um "atalho" para encontrar o visor do HTML pelo ID
@@ -36,7 +92,12 @@ function calcular() {
     
     // 1. O comando 'eval' lê o texto (ex: "5+5") e o resolve como matemática (10)
     let resultado = eval(visor.value);
-    
+
+    salvarConta({ 
+        conta: visor.value, 
+        resultado: resultado,
+    })
+
     // 2. TRATAMENTO DE ERRO: Se o resultado for infinito (divisão por zero)
     // ou se o resultado não for um número (NaN)...
 	
@@ -47,6 +108,7 @@ function calcular() {
 
     // 3. Finalmente, mostramos o resultado final (limpo) de volta no visor
     visor.value = resultado;
+    carregarContas()
 }
 
 function converterTextoParaPadraoEval(texto) {
@@ -70,3 +132,4 @@ function verificarLetra() {
 
     visor.value = listaTexto.join("")
 }
+
