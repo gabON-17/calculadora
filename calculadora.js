@@ -2,7 +2,7 @@
 function digitar(caractere) {
     // 1. Criamos um "atalho" para encontrar o visor do HTML pelo ID
     let visor = document.getElementById("visor");
- 
+
     // 2. Se o visor estiver mostrando apenas o "0" (estado inicial)...
     if (visor.value == "0") {
         // ...nós substituímos esse "0" pelo caractere que o usuário clicou
@@ -33,14 +33,14 @@ function calcular() {
     let visor = document.getElementById("visor");
 
     visor.value = converterTextoParaPadraoEval(visor.value);
-    
+
     // 1. O comando 'eval' lê o texto (ex: "5+5") e o resolve como matemática (10)
     let resultado = eval(visor.value);
-    
+
     // 2. TRATAMENTO DE ERRO: Se o resultado for infinito (divisão por zero)
     // ou se o resultado não for um número (NaN)...
-	
-    if (resultado == Infinity ) {
+
+    if (resultado == Infinity) {
         // ...nós forçamos o valor a ser "0" para não assustar o usuário
         resultado = 0;
     }
@@ -70,3 +70,27 @@ function verificarLetra() {
 
     visor.value = listaTexto.join("")
 }
+
+// MAIN
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Função para mostrar/esconder botões científicos
+    const checkbox = document.getElementById("toggleCientifica");
+    const botoesCientificos = document.querySelectorAll(".cientifica");
+
+    botoesCientificos.forEach(botao => botao.style.display = "none");
+
+    checkbox.addEventListener("change", function () {
+        botoesCientificos.forEach(botao => {
+            if (this.checked) {
+                botao.style.display = "block";
+            } else {
+                botao.style.display = "none";
+            }
+        });
+    });
+});
+
+
+
