@@ -45,6 +45,13 @@ body {
   text-align: right;
 }
 
+#labelCientifica {
+  color: #e3f2fd;
+  font-size: 15px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
 
 /* 4. VISOR */
 #visor {
