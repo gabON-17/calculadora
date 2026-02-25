@@ -9,6 +9,7 @@ CalculadoraDB.onupgradeneeded = function(event) {
 CalculadoraDB.onsuccess = function(event) {
     db = event.target.result
     console.log("Conexao feita")
+    deletarContas()
 }
 
 addEventListener("DOMContentLoaded", (e) => {
@@ -43,6 +44,34 @@ function salvarConta(objetoConta) {
     }
 }
 
+function deletarContas() {
+    const transacao = db.transaction(["calculos"], "readwrite")
+
+    const objetoCalculos = transacao.objectStore("calculos")
+    const deletarCalculos = objetoCalculos.clear()
+
+    deletarCalculos.onsuccess = (event) => {
+        console.log("Deletado")
+    }
+
+    deletarCalculos.onerror = (event) => {
+        console.log("Error ao deletar")
+        console.log(event.target.error)
+    }
+}
+
+function mostrarContas(calculos) {
+    const historico = document.getElementsByClassName('calculadora-historico')[0]
+    const conta = document.createElement('p')
+
+    conta.innerHTML = `
+        ${calculos[calculos.length - 1].conta} = 
+        ${calculos[calculos.length - 1].resultado}
+    `
+    conta.className = "conta-historico"
+    historico.appendChild(conta)
+}
+
 
 function carregarContas() {
 
@@ -53,6 +82,7 @@ function carregarContas() {
 
     getCalculos.onsuccess = function(event) {
         const calculos = event.target.result    
+        mostrarContas(calculos)
         const historico = document.getElementById("historico")
 
         for(let calc of calculos) {
@@ -150,4 +180,30 @@ function verificarLetra() {
 
     visor.value = listaTexto.join("")
 }
+
+// MAIN
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Função para mostrar/esconder botões científicos
+    const checkbox = document.getElementById("toggleCientifica");
+    const botoesCientificos = document.querySelectorAll(".cientifica");
+
+    botoesCientificos.forEach(botao => botao.style.display = "none");
+
+    checkbox.addEventListener("change", function () {
+        botoesCientificos.forEach(botao => {
+            if (this.checked) {
+                botao.style.display = "block";
+            } else {
+                botao.style.display = "none";
+            }
+        });
+    });
+    // Limpar Historico quando a pagina e carregada
+});
+
+
+
+
 
