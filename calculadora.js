@@ -60,7 +60,6 @@ function mostrarContas(calculos) {
     historico.appendChild(conta)
 }
 
-
 function carregarContas() {
 
     const transacao = db.transaction(["calculos"], "readonly")
@@ -77,8 +76,6 @@ function carregarContas() {
         console.log("Error ao carregar as contas")
     }
 }
-
-
 
 // Função que é executada toda vez que clicamos em um número ou operador
 function digitar(caractere) {
